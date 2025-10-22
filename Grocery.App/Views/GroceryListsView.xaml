@@ -10,7 +10,11 @@
         <Grid>
             <Label Text="Boodschappenlijsten" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />
         </Grid>
-    </Shell.TitleView>
+    </Shell.TitleView> <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding Client.Name}"
+                     Command="{Binding ShowBoughtProductsAsync}" />
+    </ContentPage.ToolbarItems>
+    
 
     <Border Stroke="#C49B33"
         StrokeThickness="4"

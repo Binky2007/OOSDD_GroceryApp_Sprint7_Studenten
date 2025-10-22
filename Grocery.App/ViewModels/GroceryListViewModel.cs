@@ -10,6 +10,9 @@ namespace Grocery.App.ViewModels
     {
         public ObservableCollection<GroceryList> GroceryLists { get; set; }
         private readonly IGroceryListService _groceryListService;
+        
+        [ObservableProperty]
+        private Client client;
 
         public GroceryListViewModel(IGroceryListService groceryListService) 
         {
@@ -35,5 +38,16 @@ namespace Grocery.App.ViewModels
             base.OnDisappearing();
             GroceryLists.Clear();
         }
+
+        [RelayCommand]
+        public async Task ShowBoughtProducts()
+        {
+            if (Client.Role == Role.Admin)
+            {
+                await Shell.Current.GoToAsync(nameof(Views.BoughtProductsView));
+            }
+            
+        }
+
     }
 }

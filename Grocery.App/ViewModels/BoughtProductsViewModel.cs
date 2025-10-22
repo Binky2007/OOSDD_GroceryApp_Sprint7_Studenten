@@ -32,8 +32,6 @@ namespace Grocery.App.ViewModels
                 BoughtProductsList.Add(item);
             }
         }
-
-
         [RelayCommand]
         public void NewSelectedProduct(Product product)
         {

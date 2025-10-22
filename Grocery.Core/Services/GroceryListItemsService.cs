@@ -67,7 +67,6 @@ namespace Grocery.Core.Services
                 productCountsList.Add((group.Key, totalSold));
             }
 
-            // Sorteer aflopend en pak top X producten
             productCountsList.Sort((a, b) => b.TotalSold.CompareTo(a.TotalSold));
             List<(int ProductId, int TotalSold)> topProducts = new List<(int ProductId, int TotalSold)>();
             int counter = 0;

@@ -9,7 +9,7 @@
 
     <!-- ✅ ToolbarItem met Client.Name en ShowBoughtProducts -->
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="admin"
+        <ToolbarItem Text="{Binding Client.Name}"
                      Command="{Binding ShowBoughtProductsCommand}" />
     </ContentPage.ToolbarItems>
 

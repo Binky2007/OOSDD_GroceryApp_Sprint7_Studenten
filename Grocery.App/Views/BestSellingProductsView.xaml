@@ -9,27 +9,17 @@
 
     <Shell.TitleView>
         <Grid>
-            <Label Text="Best verkochte producten"
-                   FontSize="Large"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center" />
+            <Label Text="Best verkochte producten" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />
         </Grid>
     </Shell.TitleView>
 
-    <Border Stroke="#C49B33"
-            StrokeThickness="4"
-            Padding="10"
-            Margin="10"
-            HorizontalOptions="FillAndExpand">
-
-        <!-- Grid met header + CollectionView -->
+    <Border Stroke="#C49B33" StrokeThickness="4" Padding="10" Margin="10" HorizontalOptions="FillAndExpand">
         <Grid RowSpacing="0" Padding="0" Margin="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <!-- Header -->
             <Grid Grid.Row="0" Padding="5"  HorizontalOptions="FillAndExpand">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -44,7 +34,6 @@
                 <Label Grid.Column="3" Text="Aantal in voorraad" FontAttributes="Bold" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
             </Grid>
 
-            <!-- CollectionView -->
             <CollectionView Grid.Row="1" ItemsSource="{Binding Products}" Margin="0" HorizontalOptions="FillAndExpand">
 
                 <CollectionView.ItemsLayout>

@@ -51,8 +51,59 @@ namespace Grocery.Core.Services
 
         public List<BestSellingProducts> GetBestSellingProducts(int topX = 5)
         {
-            throw new NotImplementedException();
+            // pak alle producten uit alle boodschappenlijsten
+            List<GroceryListItem> allGroceryItems = _groceriesRepository.GetAll();
+
+            List<IGrouping<int, GroceryListItem>> groupedByProduct = allGroceryItems.GroupBy(item => item.ProductId).ToList();
+
+            List<(int ProductId, int TotalSold)> productCountsList = new List<(int ProductId, int TotalSold)>();
+            foreach (IGrouping<int, GroceryListItem> group in groupedByProduct)
+            {
+                int totalSold = 0;
+                foreach (GroceryListItem item in group)
+                {
+                    totalSold += item.Amount; 
+                }
+                productCountsList.Add((group.Key, totalSold));
+            }
+
+            productCountsList.Sort((a, b) => b.TotalSold.CompareTo(a.TotalSold));
+            List<(int ProductId, int TotalSold)> topProducts = new List<(int ProductId, int TotalSold)>();
+            int counter = 0;
+            foreach ((int ProductId, int TotalSold) entry in productCountsList)
+            {
+                if (counter >= topX)
+                    break;
+
+                topProducts.Add(entry);
+                counter++;
+            }
+
+            // Haal alle producten op
+            List<Product> allProducts = _productRepository.GetAll();
+
+            // Maak lijst van BestSellingProducts
+            List<BestSellingProducts> bestSellingProducts = new List<BestSellingProducts>();
+            int ranking = 1;
+            foreach ((int ProductId, int TotalSold) entry in topProducts)
+            {
+                Product? product = allProducts.FirstOrDefault(p => p.Id == entry.ProductId);
+                if (product != null)
+                {
+                    BestSellingProducts bestProduct = new BestSellingProducts(
+                        product.Id,
+                        product.name,
+                        product.Stock,
+                        entry.TotalSold,
+                        ranking++
+                    );
+                    bestSellingProducts.Add(bestProduct);
+                }
+            }
+
+            return bestSellingProducts;
         }
+
 
         private void FillService(List<GroceryListItem> groceryListItems)
         {

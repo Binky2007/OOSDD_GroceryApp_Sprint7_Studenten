@@ -42,9 +42,15 @@
                             <Label Grid.Column="1" Text="{Binding Amount}" VerticalOptions="Center" HorizontalOptions="End" Margin="0,0,10,0"/>
                             <Grid Grid.Column="2">
                                 <Image Source="plus.png" WidthRequest="15" HeightRequest="15"/>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:GroceryListItemsViewModel}}, Path=IncreaseAmountCommand}" CommandParameter="{Binding ProductId}" />
+                                </Grid.GestureRecognizers>
                             </Grid>
                             <Grid Grid.Column="3">
                                 <Image Source="min.png" WidthRequest="15" HeightRequest="15"/>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:GroceryListItemsViewModel}}, Path=DecreaseAmountCommand}" CommandParameter="{Binding ProductId}" />
+                                </Grid.GestureRecognizers>
                             </Grid>
                         </Grid>
                     </DataTemplate>
@@ -56,9 +62,9 @@
             <StackLayout>
                 <SearchBar x:Name="searchBar" SearchCommand="{Binding PerformSearchCommand}" SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
                 <CollectionView ItemsSource="{Binding AvailableProducts}" Margin="5" WidthRequest="300" HorizontalOptions="Start"
-            SelectionMode="Single"
-            SelectionChangedCommand="{Binding AddProductCommand}"
-            SelectionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=SelectedItem}">
+                    SelectionMode="Single"
+                    SelectionChangedCommand="{Binding AddProductCommand}"
+                    SelectionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=SelectedItem}">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
                     </CollectionView.ItemsLayout>
